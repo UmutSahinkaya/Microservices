@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.ControllerBases;
-using Shared.Services;
 using System.Threading.Tasks;
 using Web.Models.Basket;
 using Web.Services.Interfaces;
