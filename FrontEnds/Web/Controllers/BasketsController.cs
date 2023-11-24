@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shared.ControllerBases;
 using Shared.Services;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Web.Services.Interfaces;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class BasketController : Controller
     {
         private readonly ICatalogService _catalogService;
