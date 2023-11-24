@@ -12,10 +12,12 @@ namespace Web.Services
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
+        private readonly IDiscountService _discountService;
 
-        public BasketService(HttpClient httpClient)
+        public BasketService(HttpClient httpClient, IDiscountService discountService)
         {
             _httpClient = httpClient;
+            _discountService = discountService;
         }
 
         public async Task AddBasketItem(BasketItemViewModel basketItemViewModel)
@@ -38,14 +40,40 @@ namespace Web.Services
             await SaveOrUpdate(basket);
         }
 
-        public Task<bool> ApplyDiscount(string discountCode)
+        public async Task<bool> ApplyDiscount(string discountCode)
         {
-            throw new NotImplementedException();
+            await CancelApplyDiscount();
+
+            var basket = await Get();
+            if (basket == null || basket.DiscountCode == null)
+            {
+                return false;
+            }
+
+            var hasDiscount = await _discountService.GetDiscount(discountCode);
+            if (hasDiscount == null)
+            {
+                return false;
+            }
+
+            basket.DiscountRate = hasDiscount.Rate;
+            basket.DiscountCode = hasDiscount.Code;
+            await SaveOrUpdate(basket);
+            return true;
         }
 
-        public Task<bool> CancelApplyDiscount()
+        public async Task<bool> CancelApplyDiscount()
         {
-            throw new NotImplementedException();
+            var basket = await Get();
+
+            if (basket == null || basket.DiscountCode == null)
+            {
+                return false;
+            }
+
+            basket.DiscountCode = null; ;
+            await SaveOrUpdate(basket);
+            return true;
         }
 
         public async Task<bool> Delete()
@@ -60,7 +88,9 @@ namespace Web.Services
             var response = await _httpClient.GetAsync("baskets");
 
             if (!response.IsSuccessStatusCode)
+            {
                 return null;
+            }
             var basketViewModel = await response.Content.ReadFromJsonAsync<Response<BasketViewModel>>();
 
             return basketViewModel.Data;
@@ -71,20 +101,29 @@ namespace Web.Services
             var basket = await Get();
 
             if (basket == null)
+
+            {
                 return false;
+            }
 
             var deleteBasketItem = basket.BasketItems.FirstOrDefault(x => x.CourseId == courseId);
 
             if (deleteBasketItem == null)
+            {
                 return false;
+            }
 
             var deleteResult = basket.BasketItems.Remove(deleteBasketItem);
 
             if (!deleteResult)
+            {
                 return false;
+            }
 
             if (!basket.BasketItems.Any())
+            {
                 basket.DiscountCode = null;
+            }
 
             return await SaveOrUpdate(basket);
         }
