@@ -9,12 +9,12 @@ using Web.Services.Interfaces;
 namespace Web.Controllers
 {
     [Authorize]
-    public class BasketController : Controller
+    public class BasketsController : Controller
     {
         private readonly ICatalogService _catalogService;
         private readonly IBasketService _basketService;
 
-        public BasketController(ICatalogService catalogService, IBasketService basketService)
+        public BasketsController(ICatalogService catalogService, IBasketService basketService)
         {
             _catalogService = catalogService;
             _basketService = basketService;
@@ -35,6 +35,7 @@ namespace Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         public async Task<IActionResult> RemoveBasketItem(string courseId)
         {
             var result = await _basketService.RemoveBasketItem(courseId);
@@ -44,6 +45,11 @@ namespace Web.Controllers
 
         public async Task<IActionResult> ApplyDiscount(DiscountApplyInput discountApplyInput)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["discountError"] = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).First();
+                return RedirectToAction(nameof(Index));
+            }
             var discountStatus = await _basketService.ApplyDiscount(discountApplyInput.Code);
 
             TempData["discountStatus"] = discountStatus;

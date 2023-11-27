@@ -19,6 +19,7 @@ namespace Web.Services
             _httpClient = httpClient;
             _discountService = discountService;
         }
+
         public async Task AddBasketItem(BasketItemViewModel basketItemViewModel)
         {
             var basket = await Get();
@@ -33,6 +34,7 @@ namespace Web.Services
             else
             {
                 basket = new BasketViewModel();
+
                 basket.BasketItems.Add(basketItemViewModel);
             }
 
@@ -44,7 +46,7 @@ namespace Web.Services
             await CancelApplyDiscount();
 
             var basket = await Get();
-            if (basket == null || basket.DiscountCode == null)
+            if (basket == null)
             {
                 return false;
             }
@@ -55,9 +57,7 @@ namespace Web.Services
                 return false;
             }
 
-            basket.DiscountRate = hasDiscount.Rate;
-            basket.DiscountCode = hasDiscount.Code;
-            //basket.ApplyDiscount(hasDiscount.Code, hasDiscount.Rate);
+            basket.ApplyDiscount(hasDiscount.Code, hasDiscount.Rate);
             await SaveOrUpdate(basket);
             return true;
         }
@@ -71,8 +71,7 @@ namespace Web.Services
                 return false;
             }
 
-            basket.DiscountCode = null;
-            //basket.CancelDiscount();
+            basket.CancelDiscount();
             await SaveOrUpdate(basket);
             return true;
         }
