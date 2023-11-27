@@ -18,6 +18,7 @@ namespace Web.Models.Catalog
 
         public string UserId { get; set; }
 
+        public string Picture { get; set; }
         public FeatureViewModel Feature { get; set; }
 
         [Display(Name = "Kurs kategori")]
