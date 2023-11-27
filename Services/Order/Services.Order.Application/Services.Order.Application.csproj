@@ -13,6 +13,8 @@
     <ProjectReference Include="..\..\..\Shared\Shared\Shared.csproj" />
     <ProjectReference Include="..\Services.Order.Domain\Services.Order.Domain.csproj" />
     <ProjectReference Include="..\Services.Order.Infrastructure\Services.Order.Infrastructure.csproj" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.1.7" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.7" />
   </ItemGroup>
 
 </Project>
