@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Catalog", "Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8B429979-C110-4114-ADCD-0BABFB726F4D}"
 	ProjectSection(SolutionItems) = preProject
+		DockerCodes.txt = DockerCodes.txt
 		Ports.txt = Ports.txt
 	EndProjectSection
 EndProject
@@ -52,11 +53,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.FakePayment", "Ser
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{70691978-BDAA-49E6-BCC2-1E9BBB398419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateways\Gateway\Gateway.csproj", "{3D59A88E-75E1-47B5-B5B3-5211DA385F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "Gateways\Gateway\Gateway.csproj", "{3D59A88E-75E1-47B5-B5B3-5211DA385F16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnds", "FrontEnds", "{C043BF66-E262-4C6C-8D4C-9F9CE1CCDCB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "FrontEnds\Web\Web.csproj", "{3396FE46-D5CB-4A39-99A7-9892C8BF6151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "FrontEnds\Web\Web.csproj", "{3396FE46-D5CB-4A39-99A7-9892C8BF6151}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
