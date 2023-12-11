@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpGet]
         public IActionResult SignIn()
-        {
+        { 
             return View();
         }
         [HttpPost]
