@@ -13,7 +13,7 @@ namespace Web.Controllers
         private readonly IIdentityService _identityService;
 
         public AuthController(IIdentityService identityService)
-        {
+        { 
             _identityService = identityService;
         }
 
