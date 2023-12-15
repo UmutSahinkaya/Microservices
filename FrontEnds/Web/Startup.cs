@@ -9,9 +9,9 @@ using Shared.Services;
 using System;
 using Web.Helpers;
 using Web.Models;
-using Web.Services;
-using Web.Services.Interfaces;
 using Web.Extensions;
+using FluentValidation.AspNetCore;
+using Web.Validators;
 
 namespace Web
 {
@@ -47,7 +47,7 @@ namespace Web
                     opts.Cookie.Name = "webcookie";
                 });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CourseCreateInputValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

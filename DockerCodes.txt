@@ -1,0 +1,3 @@
+docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmqcontainer rabbitmq:3.8.14-management
+
+ilk yazdýðým port Uý da ayaða kalktý ikinci port ise rabbitmq nun ta kendisinin portu
