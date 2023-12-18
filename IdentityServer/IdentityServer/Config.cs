@@ -62,12 +62,20 @@ namespace IdentityServer
                     AllowOfflineAccess=true,
                     ClientSecrets={new Secret("secret".Sha256())},
                     AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes={ IdentityServerConstants.LocalApi.ScopeName,IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess,"roles","basket_fullpermission","discount_fullpermission","order_fullpermission","payment_fullpermission","gateway_fullpermission" },
+                    AllowedScopes={ IdentityServerConstants.LocalApi.ScopeName,IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess,"roles","basket_fullpermission","order_fullpermission","gateway_fullpermission" },
                     AccessTokenLifetime=1*60*60,
                     RefreshTokenExpiration=TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime=(int)(DateTime.Now.AddDays(60)-DateTime.Today).TotalSeconds,
                     RefreshTokenUsage=TokenUsage.ReUse
-                }
+                },
+                new Client
+                {
+                    ClientName="Token Exchange Client",
+                    ClientId="TokenExchangeClient",
+                    ClientSecrets={new Secret("secret".Sha256())},
+                    AllowedGrantTypes=new[]{"urn:ietf:params:oauth:grant-type:token-exchange" },
+                    AllowedScopes={"discount_fullpermission", "payment_fullpermission",IdentityServerConstants.StandardScopes.OpenId },
+                },
             };
     }
 }
